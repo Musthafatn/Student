@@ -1,8 +1,8 @@
-package main.java.com.scg.student.dao;
+package com.scg.student.dao;
 
 import java.util.List;
 
-import main.java.com.scg.student.vo.Student;
+import com.scg.student.vo.Student;
 
 public interface StudentDAO {
 

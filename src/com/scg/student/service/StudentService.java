@@ -1,6 +1,6 @@
-package main.java.com.scg.student.service;
+package com.scg.student.service;
 
-import main.java.com.scg.student.vo.Student;
+import com.scg.student.vo.Student;
 
 public interface StudentService {
 

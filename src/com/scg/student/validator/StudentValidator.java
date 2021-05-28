@@ -1,19 +1,19 @@
-package main.java.com.scg.student.service;
+package com.scg.student.validator;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import main.java.com.scg.student.dao.StudentDAOImplement;
-import main.java.com.scg.student.vo.Student;
+import com.scg.student.dao.StudentDAO;
+import com.scg.student.dao.StudentDAOImpl;
+import com.scg.student.exception.InvalidInputException;
+import com.scg.student.vo.Student;
 
 public class StudentValidator {
-	
-	StudentDAOImplement dao=new StudentDAOImplement();
 	
 	public static void validateId(int id) throws Exception {
 		
 		if(id<1) {
-			throw new InvalidInput("Invalid Id");
+			throw new InvalidInputException("Invalid Id");
 		}
 		
 	}
@@ -24,7 +24,7 @@ public class StudentValidator {
 		Pattern pattern = Pattern.compile(new String (format));
 	    Matcher matcher = pattern.matcher(name);
 	    if(!matcher.matches()){
-	    	throw new InvalidInput("Invalid name");
+	    	throw new InvalidInputException("Invalid name");
 	    }
 		
 	}
@@ -32,7 +32,7 @@ public class StudentValidator {
 	public static void validateAge(int age) throws Exception {
 		
 		if(age<5||age>100) {
-			throw new InvalidInput("Invalid Age");
+			throw new InvalidInputException("Invalid Age");
 		}
 	
 	}
@@ -53,7 +53,7 @@ public class StudentValidator {
 	public static void validatePageNumber(int pageNumber) throws Exception {
 		
 		if(pageNumber<1) {
-			throw new InvalidInput("Invalid page number");
+			throw new InvalidInputException("Invalid page number");
 		}
 		
 	}

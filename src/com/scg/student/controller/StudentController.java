@@ -1,13 +1,13 @@
-package main.java.com.scg;
+package com.scg.student.controller;
 
-import main.java.com.scg.student.service.ConsoleReader;
-import main.java.com.scg.student.service.StudentService;
-import main.java.com.scg.student.service.StudentServiceImplement;
-import main.java.com.scg.student.vo.Student;
+import com.scg.student.reader.ConsoleReader;
+import com.scg.student.service.StudentService;
+import com.scg.student.service.StudentServiceImpl;
+import com.scg.student.vo.Student;
 
 public class StudentController {
 
-	private static StudentService studentService = new StudentServiceImplement();
+	private static StudentService studentService = new StudentServiceImpl();
 
 	public static void insert() {
 

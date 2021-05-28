@@ -1,4 +1,4 @@
-package main.java.com.scg.student.dao;
+package com.scg.student.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,17 +7,16 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import main.java.com.scg.student.service.InvalidInput;
-import main.java.com.scg.student.vo.Student;
+import com.scg.student.exception.InvalidInputException;
+import com.scg.student.vo.Student;
 
-public class StudentDAOImplement implements StudentDAO {
+public class StudentDAOImpl implements StudentDAO {
 
 	private Connection connnection;
 	private PreparedStatement preparedStatement;
 	private ResultSet resultSet;
 	private String query;
 	private List<Student> studentList = new ArrayList<>();
-	String Hi="hi";
 
 	@Override
 	public void connect() throws Exception {
@@ -52,7 +51,7 @@ public class StudentDAOImplement implements StudentDAO {
 		String name = s.getName();
 		int age = s.getAge();
 		if (existStudent(id)) {
-			throw new InvalidInput("Id already exist");
+			throw new InvalidInputException("Id already exist");
 		}
 		query = "insert into student values(?,?,?)";
 		preparedStatement = connnection.prepareStatement(query);
@@ -68,7 +67,7 @@ public class StudentDAOImplement implements StudentDAO {
 
 		if (!existStudent(id)) {
 			preparedStatement.close();
-			throw new InvalidInput("Id does not exist");
+			throw new InvalidInputException("Id does not exist");
 		}
 
 		query = String.format("delete from student where id=%d", id);
@@ -102,7 +101,7 @@ public class StudentDAOImplement implements StudentDAO {
 
 		if (!existStudent(student.getId())) {
 			preparedStatement.close();
-			throw new InvalidInput("Id does not exist");
+			throw new InvalidInputException("Id does not exist");
 		}
 
 		int id = student.getId();
@@ -143,7 +142,7 @@ public class StudentDAOImplement implements StudentDAO {
 		resultSet = preparedStatement.executeQuery();
 		if (!resultSet.next()) {
 			preparedStatement.close();
-			throw new InvalidInput("Id not found");
+			throw new InvalidInputException("Id not found");
 		}
 		int id = resultSet.getInt("id");
 		String name = resultSet.getString("name");

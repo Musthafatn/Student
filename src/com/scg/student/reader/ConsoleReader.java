@@ -1,4 +1,4 @@
-package main.java.com.scg.student.service;
+package com.scg.student.reader;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

@@ -1,4 +1,4 @@
-package main.java.com.scg.student.vo;
+package com.scg.student.vo;
 
 public class Student {
 	

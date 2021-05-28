@@ -1,18 +1,21 @@
-package main.java.com.scg.student.service;
+package com.scg.student.service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import main.java.com.scg.student.dao.StudentDAOImplement;
-import main.java.com.scg.student.vo.Student;
+import com.scg.student.dao.StudentDAO;
+import com.scg.student.dao.StudentDAOImpl;
+import com.scg.student.exception.InvalidInputException;
+import com.scg.student.validator.StudentValidator;
+import com.scg.student.vo.Student;
 
-public class StudentServiceImplement implements StudentService {
+public class StudentServiceImpl implements StudentService {
 
-	private static StudentDAOImplement dao = new StudentDAOImplement();
+	private static StudentDAO studentDAO = new StudentDAOImpl();
 
 	@Override
 	public void connect() throws Exception {
-		dao.connect();
+		studentDAO.connect();
 	}
 
 	@Override
@@ -20,7 +23,7 @@ public class StudentServiceImplement implements StudentService {
 		// TODO Auto-generated method stub
 		try {
 			StudentValidator.validate(student);
-			dao.insert(student);
+			studentDAO.insert(student);
 			System.out.println("Inserted successfuly\n");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -34,7 +37,7 @@ public class StudentServiceImplement implements StudentService {
 		// TODO Auto-generated method stub
 		try {
 			StudentValidator.validateId(id);
-			dao.delete(id);
+			studentDAO.delete(id);
 			System.out.println("Deleted successfully\n");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -55,10 +58,10 @@ public class StudentServiceImplement implements StudentService {
 
 			int fromIndex = pageSize * (pageNumber - 1);
 
-			List<Student> subList = dao.readByPage(pageSize, fromIndex);
+			List<Student> subList = studentDAO.readByPage(pageSize, fromIndex);
 
 			if (subList.isEmpty()) {
-				throw new InvalidInput("No data found");
+				throw new InvalidInputException("No data found");
 			}
 
 			for (Student student : subList) {
@@ -79,7 +82,7 @@ public class StudentServiceImplement implements StudentService {
 
 		try {
 			StudentValidator.validate(student);
-			dao.update(student);
+			studentDAO.update(student);
 			System.out.println("Updated Successfully\n");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -94,7 +97,7 @@ public class StudentServiceImplement implements StudentService {
 
 		try {
 			StudentValidator.validateName(name);
-			List<Student> studentList = dao.searchbyName(name);
+			List<Student> studentList = studentDAO.searchbyName(name);
 			if (studentList.isEmpty()) {
 				System.out.println("No data found\n");
 				return;
@@ -116,7 +119,7 @@ public class StudentServiceImplement implements StudentService {
 
 		try {
 			StudentValidator.validateId(id);
-			Student student = dao.readById(id);
+			Student student = studentDAO.readById(id);
 			System.out.println(student.getId() + " " + student.getName() + " " + student.getAge() + "\n");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -128,7 +131,7 @@ public class StudentServiceImplement implements StudentService {
 	@Override
 	public void commit() throws Exception {
 		// TODO Auto-generated method stub
-		dao.commit();
+		studentDAO.commit();
 		System.out.println("Committed successfully");
 
 	}
@@ -136,7 +139,7 @@ public class StudentServiceImplement implements StudentService {
 	@Override
 	public void rollback() throws Exception {
 		// TODO Auto-generated method stub
-		dao.rollback();
+		studentDAO.rollback();
 		System.out.println("Rollbacked successfully");
 
 	}
@@ -144,7 +147,7 @@ public class StudentServiceImplement implements StudentService {
 	@Override
 	public void readAll() throws Exception {
 		List<Student> studentList = new ArrayList<>();
-		studentList = dao.readAll();
+		studentList = studentDAO.readAll();
 		for (Student student : studentList) {
 			System.out.println(student.getId() + " " + student.getName() + " " + student.getAge());
 		}
@@ -154,7 +157,7 @@ public class StudentServiceImplement implements StudentService {
 	@Override
 	public void closeConnection() throws Exception {
 		// TODO Auto-generated method stub
-		dao.closeConnection();
+		studentDAO.closeConnection();
 		System.out.println("Connection closed");
 
 	}
