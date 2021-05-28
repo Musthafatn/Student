@@ -21,7 +21,7 @@ public class StudentValidator {
 	public static void validateName(String name) throws Exception {
 		
 		String format="^[a-zA-Z\\s]*$";
-		Pattern pattern = Pattern.compile(new String (format));
+		Pattern pattern = Pattern.compile(format);
 	    Matcher matcher = pattern.matcher(name);
 	    if(!matcher.matches()){
 	    	throw new InvalidInputException("Invalid name");
